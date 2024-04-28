@@ -40,6 +40,8 @@
         <!-- PLUGINS -->
         <maven.resources.plugin.version>3.0.1</maven.resources.plugin.version>
         <maven.ejb.plugin.version>2.5.1</maven.ejb.plugin.version>
+        <version.ear.plugin.version>2.10.1</version.ear.plugin.version>
+
         <gmaven.plugin.version>1.5</gmaven.plugin.version>
         <maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
         <maven.war.plugin.version>2.6</maven.war.plugin.version>
@@ -89,6 +91,7 @@
 
     <modules>
         <module>company-hub-dao</module>
+        <module>company-hub-ear</module>
     </modules>
 
     <dependencyManagement>
@@ -165,6 +168,12 @@
             </dependency>
             <!-- END TESTING -->
 
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>company-hub-dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -192,6 +201,45 @@
                         </archive>
                     </configuration>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>${version.ear.plugin.version}</version>
+                    <configuration>
+<!--                        <defaultLibBundleDir>lib</defaultLibBundleDir>-->
+                        <modules>
+
+                            <ejbModule>
+                                <groupId>${project.groupId}</groupId>
+                                <artifactId>company-hub-dao</artifactId>
+<!--                                <bundleFilename>company-hub-dao.jar</bundleFilename>-->
+                            </ejbModule>
+<!--                            <ejbModule>-->
+<!--                                <groupId>${project.groupId}</groupId>-->
+<!--                                <artifactId>company-hub-dao</artifactId>-->
+<!--&lt;!&ndash;                                <bundleFilename>company-hub-dao.jar</bundleFilename>&ndash;&gt;-->
+<!--                            </ejbModule>-->
+                            <!-- Default context root of the web app is /company-hub-web.
+                                If a custom context root is needed, uncomment the following snippet to
+                                register our War as a web module and set the contextRoot property -->
+                            <!--
+                            <webModule>
+                                <groupId>${project.groupId}</groupId>
+                                <artifactId>company-hub-web</artifactId>
+                                <contextRoot>/company-hub</contextRoot>
+                            </webModule>
+                            -->
+                        </modules>
+<!--                        <outputFileNameMapping>@{artifactId}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>-->
+                    </configuration>
+                </plugin>
+
+
+
+
+
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
