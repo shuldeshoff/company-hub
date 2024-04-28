@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
+             xmlns="http://java.sun.com/xml/ns/persistence"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="paygine-TPU" transaction-type="JTA">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jta-data-source>java:/paymentgatePSQL</jta-data-source>
+        <class>com.paygine.core.model.DctMcc</class>
+        <class>com.paygine.core.model.EBinFee</class>
+        <class>com.paygine.core.model.ECardProduct</class>
+        <class>com.paygine.core.model.ECountry</class>
+        <class>com.paygine.core.model.ECurrency</class>
+        <class>com.paygine.core.model.EDirectoryServer</class>
+        <class>com.paygine.core.model.EFee</class>
+        <class>com.paygine.core.model.EPaymentFee</class>
+        <class>com.paygine.core.model.EGate</class>
+        <class>com.paygine.core.model.EHistory</class>
+        <class>com.paygine.core.model.EMerchantReasonCode</class>
+        <class>com.paygine.core.model.EMpiParameters</class>
+        <class>com.paygine.core.model.EOperation</class>
+        <class>com.paygine.core.model.EThreedInfo</class>
+        <class>com.paygine.core.model.EOperationParameter</class>
+        <class>com.paygine.core.model.EOrder</class>
+        <class>com.paygine.core.model.EOrderParameter</class>
+        <class>com.paygine.core.model.EPassword</class>
+        <class>com.paygine.core.model.EPaymentPage</class>
+        <class>com.paygine.core.model.EProcessor</class>
+        <class>com.paygine.core.model.EProcessorParameter</class>
+        <class>com.paygine.core.model.EProtocol</class>
+        <class>com.paygine.core.model.EProtocolParameter</class>
+        <class>com.paygine.core.model.EProtocolReasonCode</class>
+        <class>com.paygine.core.model.ERecurring</class>
+        <class>com.paygine.core.model.ERole</class>
+        <class>com.paygine.core.model.ESectorCabinet</class>
+        <class>com.paygine.core.model.ESectorCards</class>
+        <class>com.paygine.core.model.ESectorCardFields</class>
+        <class>com.paygine.core.model.ESectorCredit</class>
+        <class>com.paygine.core.model.ESectorInfo</class>
+        <class>com.paygine.core.model.ESector</class>
+        <class>com.paygine.core.model.ESectorLimits</class>
+        <class>com.paygine.core.model.ESecureRanges</class>
+        <class>com.paygine.core.model.ESettings</class>
+        <class>com.paygine.core.model.ESiteInfo</class>
+        <class>com.paygine.core.model.ESite</class>
+        <class>com.paygine.core.model.ETax</class>
+        <class>com.paygine.core.model.ETerminalSet</class>
+        <class>com.paygine.core.model.EUser</class>
+        <class>com.paygine.core.model.EDiscountAcc</class>
+        <class>com.paygine.core.model.EDiscountBin1</class>
+        <class>com.paygine.core.model.EDiscountBin2</class>
+        <class>com.paygine.core.model.EDiscountContract</class>
+        <class>com.paygine.core.model.EUserPermissions</class>
+        <class>com.paygine.core.model.EPermissionsTemplate</class>
+        <class>com.paygine.core.model.EBulkRegistry</class>
+        <class>com.paygine.core.model.EReport</class>
+        <class>com.paygine.core.model.EShortUrl</class>
+        <class>com.paygine.core.model.EDebitFee</class>
+        <class>com.paygine.core.model.EVendorFee</class>
+        <class>com.paygine.core.model.EVendorGroup</class>
+        <class>com.paygine.core.model.EVendor</class>
+        <class>com.paygine.core.model.DctRegion</class>
+        <class>com.paygine.core.model.EVendorField</class>
+        <class>com.paygine.core.model.EVendorCheckparam</class>
+        <class>com.paygine.core.model.EBinFeeAllows</class>
+        <class>com.paygine.core.model.ELimitsPerCard</class>
+        <class>com.paygine.core.model.EEmailBlackList</class>
+        <class>com.paygine.core.model.EMpiConsumerReq</class>
+        <class>com.paygine.core.model.EMpiConsumer</class>
+        <class>com.paygine.core.model.EB2pUser</class>
+        <class>com.paygine.core.model.EB2pUserParameter</class>
+        <class>com.paygine.core.model.EB2pUserCards</class>
+        <class>com.paygine.core.model.EPromoRule</class>
+        <class>com.paygine.core.model.EPromoCode</class>
+        <class>com.paygine.core.model.EP2PMarketFee</class>
+        <class>com.paygine.core.model.EVendorFeeParam</class>
+        <class>com.paygine.core.model.ERecurringCheckParams</class>
+        <class>com.paygine.core.model.ESmsSettings</class>
+        <class>com.paygine.core.model.ESmcSettings</class>
+        <class>com.paygine.core.model.DctIssuers</class>
+        <class>com.paygine.core.model.ESafePaymentsFee</class>
+        <class>com.paygine.core.model.EOperationInfo</class>
+        <class>com.paygine.core.model.ECardReg</class>
+        <class>com.paygine.core.model.EUserTableSettings</class>
+        <class>com.paygine.core.model.EMpiConsumerMerchants</class>
+        <class>com.paygine.core.model.ENotifyFiles</class>
+        <class>com.paygine.core.model.EAlertSectorCredit</class>
+        <class>com.paygine.core.model.ECardUsageParams</class>
+        <class>com.paygine.core.model.ECardUsageParam</class>
+        <class>com.paygine.core.model.ECardUsage</class>
+        <class>com.paygine.core.model.EFimiBatchReq</class>
+        <class>com.paygine.core.model.ERejectCardBins</class>
+        <class>com.paygine.core.model.ERejectCardBin</class>
+        <class>com.paygine.core.model.ESamsungFiles</class>
+        <class>com.paygine.core.model.EGoogleFiles</class>
+        <class>com.paygine.core.model.EIdentificationHistory</class>
+        <class>com.paygine.core.model.EExcludeCavvBin</class>
+
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.dialect" value="com.paygine.sql.dialect.PaygineOracleSqlDialect"/>
+            <property name="hibernate.jdbc.batch_size" value="25"/>
+            <!--<property name="hibernate.show_sql" value="true"/>-->
+        </properties>
+
+    </persistence-unit>
+</persistence>
