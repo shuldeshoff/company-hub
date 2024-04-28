@@ -1,9 +1,22 @@
 package ru.hoteladvisors.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Branch")
 public class Branch {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
+    @Column(name = "name", nullable = false)
     private String name;
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private Company owner;
 
     public Branch() {
     }
@@ -38,6 +51,7 @@ public class Branch {
         this.address = address;
     }
 
+    @Transient
     public String getFullAddress() {
         return address != null ?
                 (address.getPostcode() != null && !address.getPostcode().isEmpty() ? address.getPostcode() + ", " : "") +

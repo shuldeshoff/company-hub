@@ -27,7 +27,6 @@
 
     <artifactId>company-hub-ear</artifactId>
     <packaging>ear</packaging>
-
     <name>company-hub-ear</name>
 
 
@@ -35,8 +34,8 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>company-hub-dao</artifactId>
-            <type>ejb</type>
             <version>${project.version}</version>
+            <type>ejb</type>
         </dependency>
 
         <!-- Depend on the EJB module and WAR so that we can package them -->
@@ -45,6 +44,12 @@
         <!--            <artifactId>company-hub-web</artifactId>-->
         <!--            <type>war</type>-->
         <!--        </dependency>-->
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+<!--            <version>5.0.5</version>-->
+        </dependency>
     </dependencies>
 
     <!--    <build>-->

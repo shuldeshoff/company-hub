@@ -1,11 +1,23 @@
 package ru.hoteladvisors.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "address")
 public class Address {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
+    @Column(name = "postcode", nullable = false)
     private String postcode;
+    @Column(name = "city", nullable = false)
     private String city;
+    @Column(name = "street", nullable = false)
     private String street;
+    @Column(name = "house", nullable = false)
     private String house;
+    @Column(name = "apartment", nullable = false)
     private String apartment;
 
     public Address() {

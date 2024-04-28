@@ -1,12 +1,23 @@
 package ru.hoteladvisors.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "company")
 public class Company {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "legal_form", nullable = false)
     private LegalForm legalForm;
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     private List<Branch> branches;
 
     public Company() {
@@ -60,6 +71,7 @@ public class Company {
         this.branches = branches;
     }
 
+    @Transient
     public String getFullAddress() {
         return address != null ?
                 (address.getPostcode() != null && !address.getPostcode().isEmpty() ? address.getPostcode() + ", " : "") +
