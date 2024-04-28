@@ -1,17 +1,12 @@
 package ru.hoteladvisors.service;
 
 
-import ru.hoteladvisors.model.Address;
-import ru.hoteladvisors.model.Branch;
 import ru.hoteladvisors.model.Company;
-import ru.hoteladvisors.model.LegalForm;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 public class CompanyServiceBean implements CompanyServiceLocal {
