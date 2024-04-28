@@ -14,7 +14,7 @@ public class CompanyViewModel {
 
     @Init
     public void init() {    // Initialize
-        selected = companyList.get(0); // Selected First One
+        selected = !companyList.isEmpty() ? companyList.get(0) : null; // Selected First One
     }
 
     public List<Company> getCompanyList() {

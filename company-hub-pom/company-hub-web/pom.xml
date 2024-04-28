@@ -21,12 +21,6 @@
 	</pluginRepositories>
 	<dependencies>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>company-hub-ejb</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkbind</artifactId>
 			<version>${zk.version}</version>
@@ -92,6 +86,11 @@
 			<artifactId>jakarta.ejb-api</artifactId>
 			<version>4.0.1</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ru.hoteladvisors</groupId>
+			<artifactId>company-hub-dao</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>

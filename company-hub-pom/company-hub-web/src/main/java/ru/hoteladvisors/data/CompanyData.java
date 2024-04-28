@@ -1,9 +1,8 @@
 package ru.hoteladvisors.data;
 
-import jakarta.ejb.EJB;
 import ru.hoteladvisors.model.Company;
 import ru.hoteladvisors.service.CompanyServiceLocal;
-import ru.hoteladvisors.utils.JNDI;
+import ru.hoteladvisors.utils.JNDIName;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -36,7 +35,7 @@ public class CompanyData {
     public List<Company> getCompanies() {
         CompanyServiceLocal companyServiceLocal = null;
         try {
-            companyServiceLocal = InitialContext.doLookup(JNDI.COMPANY_SERVICE_BEAN_JNDI);
+            companyServiceLocal = InitialContext.doLookup(JNDIName.COMPANY_SERVICE_BEAN_JNDI);
         } catch (NamingException e) {
             e.printStackTrace();
         }

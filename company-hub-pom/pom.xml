@@ -87,11 +87,13 @@
         <jwt.version>0.10.7</jwt.version>
         <jwt.jose.version>0.7.8</jwt.jose.version>
         <ofd.version>1.0.15</ofd.version>
+        <zk.version>10.0.0-Eval</zk.version>
     </properties>
 
     <modules>
         <module>company-hub-dao</module>
         <module>company-hub-ear</module>
+        <module>company-hub-web</module>
     </modules>
 
     <dependencyManagement>
@@ -223,13 +225,11 @@
                             <!-- Default context root of the web app is /company-hub-web.
                                 If a custom context root is needed, uncomment the following snippet to
                                 register our War as a web module and set the contextRoot property -->
-                            <!--
                             <webModule>
                                 <groupId>${project.groupId}</groupId>
                                 <artifactId>company-hub-web</artifactId>
                                 <contextRoot>/company-hub</contextRoot>
                             </webModule>
-                            -->
                         </modules>
 <!--                        <outputFileNameMapping>@{artifactId}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>-->
                     </configuration>
@@ -556,4 +556,33 @@
 <!--            <url>https://repo.paygine.com/repository/snapshots/</url>-->
 <!--        </snapshotRepository>-->
 <!--    </distributionManagement>-->
+
+    <repositories>
+        <!-- the JBoss community and Red Hat GA Maven repositories -->
+        <repository>
+            <!--            <releases>-->
+            <!--                <enabled>true</enabled>-->
+            <!--                <updatePolicy>never</updatePolicy>-->
+            <!--            </releases>-->
+            <!--            <snapshots>-->
+            <!--                <enabled>true</enabled>-->
+            <!--                <updatePolicy>never</updatePolicy>-->
+            <!--            </snapshots>-->
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <!--            <layout>default</layout>-->
+        </repository>
+        <repository>
+            <id>ZK CE</id>
+            <name>ZK CE Repository</name>
+            <url>https://mavensync.zkoss.org/maven2</url>
+        </repository>
+        <repository>
+            <id>ZK EVAL</id>
+            <name>ZK Evaluation Repository</name>
+            <url>https://mavensync.zkoss.org/eval</url>
+        </repository>
+    </repositories>
+
 </project>
