@@ -1,0 +1,27 @@
+version: '3'
+services:
+  wildfly:
+    image: jboss/wildfly:10.1.0.Final
+    depends_on:
+      - db    
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    #volumes:
+    #  - ./deploy:/opt/jboss/wildfly/standalone/deployments
+    environment:
+      - JAVA_OPTS=-Djava.net.preferIPv4Stack=true
+      
+  db:
+    container_name: "db"
+    image: "mysql:latest"
+    environment:
+      - MYSQL_DATABASE=company_hub_db
+      - MYSQL_USER=company_hub
+      - MYSQL_PASSWORD=4hw5vkev
+      - MYSQL_ROOT_PASSWORD=supersecret
+    volumes:
+      - ./workdir/db/init/:/docker-entrypoint-initdb.d/ # init database
+      - ./workdir/db/data/:/var/lib/mysql/              # data storage
+    ports:
+      - "3306:3306"      
