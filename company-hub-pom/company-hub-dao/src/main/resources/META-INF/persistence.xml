@@ -11,17 +11,11 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <!-- Настройки соединения с базой данных -->
         <properties>
-<!--            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/company_hub_db"/>-->
-<!--            <property name="javax.persistence.jdbc.user" value="company_hub"/>-->
-<!--            <property name="javax.persistence.jdbc.password" value="4hw5vkev"/>-->
-<!--            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />-->
-
             <!-- Настройки Hibernate -->
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDBDialect"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.jdbc.batch_size" value="25"/>
         </properties>
-
     </persistence-unit>
 </persistence>

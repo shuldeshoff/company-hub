@@ -1,23 +1,29 @@
 package ru.hoteladvisors.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "address")
+@Table(name = "addresses")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    @Size(max = 10)
     @Column(name = "postcode", nullable = false)
     private String postcode;
     @Column(name = "city", nullable = false)
+    @Size(max = 255)
     private String city;
     @Column(name = "street", nullable = false)
+    @Size(max = 50)
     private String street;
     @Column(name = "house", nullable = false)
+    @Size(max = 5)
     private String house;
     @Column(name = "apartment", nullable = false)
+    @Size(max = 5)
     private String apartment;
 
     public Address() {

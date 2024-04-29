@@ -1,10 +1,11 @@
 package ru.hoteladvisors.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name = "company")
+@Table(name = "сompanies")
 @NamedQueries({
         @NamedQuery(name = "Company.findAll", query = "FROM Company"),
 })
@@ -14,6 +15,7 @@ public class Company {
     @Column(name = "id", nullable = false)
     private Long id;
     @Column(name = "name", nullable = false)
+    @Size(max = 255)
     private String name;
     @Column(name = "legal_form", nullable = false)
     private LegalForm legalForm;

@@ -12,27 +12,6 @@
     <packaging>ejb</packaging>
 
     <name>company-hub-dao</name>
-
-
-<!--    <dependencies>-->
-<!--        <dependency>-->
-<!--            <groupId>ru.hoteladvisors</groupId>-->
-<!--            <artifactId>jar-paygine-dao</artifactId>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.poi</groupId>-->
-<!--            <artifactId>poi-ooxml</artifactId>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.paygine.p2pmarket</groupId>-->
-<!--            <artifactId>jar-paygine-p2pmarket</artifactId>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
-<!--    </dependencies>-->
-
-
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
