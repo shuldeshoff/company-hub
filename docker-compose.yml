@@ -1,27 +1,52 @@
 version: '3'
 services:
   wildfly:
-    image: jboss/wildfly:10.1.0.Final
+    container_name: "wildfly"
+    image: "jboss/wildfly:10.1.0.Final"
+    build:
+      context: ./wildfly/
+      dockerfile: Dockerfile
     depends_on:
-      - db    
+      - mariadb
     ports:
       - "8080:8080"
       - "9990:9990"
-    #volumes:
-    #  - ./deploy:/opt/jboss/wildfly/standalone/deployments
+    command: ["/opt/jboss/wildfly/bin/standalone.sh", "--server-config=standalone.xml", "-b", "0.0.0.0"]
+    volumes:
+      - ./company-hub-pom/company-hub-ear/target/company-hub-ear.ear:/opt/jboss/wildfly/standalone/deployments/company-hub-ear.ear
+      - ./wildfly/modules:/opt/wildfly-10.1.0.Final/modules/
+      - ./wildfly/configuration/standalone.xml:/opt/wildfly-10.1.0.Final/standalone/configuration/standalone.xml
     environment:
       - JAVA_OPTS=-Djava.net.preferIPv4Stack=true
       
-  db:
-    container_name: "db"
-    image: "mysql:latest"
+  mariadb:
+    container_name: "mariadb"
+    image: "mariadb:10.2"
     environment:
       - MYSQL_DATABASE=company_hub_db
       - MYSQL_USER=company_hub
       - MYSQL_PASSWORD=4hw5vkev
-      - MYSQL_ROOT_PASSWORD=supersecret
+      - MYSQL_ROOT_PASSWORD=xyz8sbbb
     volumes:
-      - ./workdir/db/init/:/docker-entrypoint-initdb.d/ # init database
-      - ./workdir/db/data/:/var/lib/mysql/              # data storage
+      - ./database/sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql 
+      - ./database/sql/data.sql:/data/data.sql              
     ports:
-      - "3306:3306"      
+      - "3306:3306"
+    networks:
+      - backend
+    restart: on-failure
+
+  Liquibase:
+    image: liquibase/liquibase:4.9.1
+    container_name: Liquibase_container
+    depends_on:
+      - mariadb
+    volumes:
+      - ./database/sql/liquibase/changeLog/:/liquibase/changelog/
+    command: --changelog-file=/liquibase/changelog/changelog.xml --url=jdbc:mariadb://127.0.0.1:3306/company_hub_db update
+    networks:
+      - backend
+
+networks:
+  backend:
+
