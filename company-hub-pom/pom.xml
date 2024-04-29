@@ -31,10 +31,8 @@
         <maven.ejb.plugin.version>2.5.1</maven.ejb.plugin.version>
         <version.ear.plugin.version>2.10.1</version.ear.plugin.version>
 
-        <gmaven.plugin.version>1.5</gmaven.plugin.version>
         <maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
         <maven.war.plugin.version>2.6</maven.war.plugin.version>
-        <maven.dependency.plugin.version>2.10</maven.dependency.plugin.version>
 
         <javaee.version>7.0</javaee.version>
         <slf4j.version>1.7.5</slf4j.version>
@@ -112,13 +110,6 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
-                    <configuration>
-                        <arguments>-Pwsdlgen</arguments>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-ejb-plugin</artifactId>
                     <version>${maven.ejb.plugin.version}</version>
@@ -131,7 +122,6 @@
                         </archive>
                     </configuration>
                 </plugin>
-
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-ear-plugin</artifactId>
@@ -174,285 +164,10 @@
                         <target>${java.version.target}</target>
                     </configuration>
                 </plugin>
-                <!--This plugin's configuration is used to store Eclipse m2e settings
-                    only. It has no influence on the Maven build itself. -->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>
-                                            org.codehaus.gmaven
-                                        </groupId>
-                                        <artifactId>
-                                            gmaven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.5,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>execute</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore />
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
-                <version>${gmaven.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <source>
-                                import java.util.Date
-                                import java.text.MessageFormat
-
-                                def vartimestamp = MessageFormat.format("{0,date,yyyy.MM.dd}", new Date())
-                                project.properties['buildtimestamp'] = vartimestamp
-                            </source>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
     </build>
 
-    <profiles>
-        <!--app2server-->
-        <profile>
-            <id>app2server</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <version>${maven.dependency.plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>payginehttp2server</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>${maven.resources.plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>app2server-deploy</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${appserver.deployments.path}</outputDirectory>
-                                    <overwrite>true</overwrite>
-                                    <resources>
-                                        <resource>
-                                            <directory>${basedir}/target</directory>
-                                            <includes>
-                                                <include>ejb-*.jar</include>
-                                                <include>war-*.war</include>
-                                                <include>hazelcast-jca-rar.rar</include>
-                                            </includes>
-                                            <excludes>
-                                                <exclude>war-paygine-webapi.war/**</exclude>
-                                                <exclude>war-paygine-resources.war/**</exclude>
-                                            </excludes>
-                                        </resource>
-                                        <resource>
-                                            <directory>src/main/deployments</directory>
-                                            <excludes>
-                                                <exclude>ROOT.war/**</exclude>
-                                                <exclude>war-paygine-resources.war/**</exclude>
-                                                <exclude>war-paygine-webapi.war/**</exclude>
-                                            </excludes>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-
-
-                            <execution>
-                                <id>app2server-wildfly-config</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${appserver.wildfly.config.path}</outputDirectory>
-                                    <overwrite>true</overwrite>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/main/configuration/</directory>
-                                            <includes>
-                                                <include>standalone-full-ha-local.xml</include>
-                                            </includes>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>app2dev</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>${maven.resources.plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>app2dev-deploy</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${update.deployments.path}</outputDirectory>
-                                    <overwrite>true</overwrite>
-                                    <resources>
-                                        <resource>
-                                            <directory>${basedir}/target</directory>
-                                            <includes>
-                                                <include>ejb-*.jar</include>
-                                                <include>war-*.war</include>
-                                                <include>hazelcast-jca-rar.rar</include>
-                                            </includes>
-                                            <excludes>
-                                                <exclude>war-paygine-webapi.war/**</exclude>
-                                                <exclude>war-paygine-resources.war/**</exclude>
-                                            </excludes>
-                                        </resource>
-                                        <resource>
-                                            <directory>src/main/deployments</directory>
-                                            <excludes>
-                                                <exclude>ROOT.war/**</exclude>
-                                                <exclude>war-paygine-resources.war/**</exclude>
-                                                <exclude>war-paygine-webapi.war/**</exclude>
-                                            </excludes>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!--update-->
-        <profile>
-            <id>app2update</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>${maven.resources.plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>app2update-deploy</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${update.deployments.path}</outputDirectory>
-                                    <overwrite>true</overwrite>
-                                    <resources>
-                                        <resource>
-                                            <directory>${basedir}/target</directory>
-                                            <includes>
-                                                <include>ejb-*.jar</include>
-                                                <include>war-*.war</include>
-                                                <include>hazelcast-jca-rar.rar</include>
-                                            </includes>
-                                            <excludes>
-                                                <exclude>war-paygine-webapi.war/**</exclude>
-                                                <exclude>war-paygine-resources.war/**</exclude>
-                                            </excludes>
-                                        </resource>
-                                        <resource>
-                                            <directory>src/main/deployments</directory>
-                                            <excludes>
-                                                <exclude>ROOT.war/**</exclude>
-                                                <exclude>war-paygine-resources.war/**</exclude>
-                                                <exclude>war-paygine-webapi.war/**</exclude>
-                                            </excludes>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!--release-->
-        <profile>
-            <id>app2release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>${maven.resources.plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>app2release-deploy</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${update.deployments.path}</outputDirectory>
-                                    <overwrite>true</overwrite>
-                                    <resources>
-                                        <resource>
-                                            <directory>${basedir}/target</directory>
-                                            <includes>
-                                                <include>ejb-*.jar</include>
-                                                <include>war-*.war</include>
-                                            </includes>
-                                        </resource>
-                                        <resource>
-                                            <directory>src/main/deployments</directory>
-                                            <excludes>
-                                                <exclude>ROOT.war/**</exclude>
-                                                <exclude>war-paygine-resources.war/**</exclude>
-                                                <exclude>war-paygine-webapi.war/**</exclude>
-                                            </excludes>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
     <repositories>
         <!-- the JBoss community and Red Hat GA Maven repositories -->
         <repository>
