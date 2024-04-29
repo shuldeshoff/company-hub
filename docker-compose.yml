@@ -11,14 +11,22 @@ services:
     ports:
       - "8080:8080"
       - "9990:9990"
-    command: ["/opt/jboss/wildfly/bin/standalone.sh", "--server-config=standalone.xml", "-b", "0.0.0.0"]
+    command: [ "/opt/jboss/wildfly/bin/standalone.sh", "--server-config=standalone.xml", "-b", "0.0.0.0" ]
     volumes:
       - ./company-hub-pom/company-hub-ear/target/company-hub-ear.ear:/opt/jboss/wildfly/standalone/deployments/company-hub-ear.ear
       - ./wildfly/modules:/opt/wildfly-10.1.0.Final/modules/
       - ./wildfly/configuration/standalone.xml:/opt/wildfly-10.1.0.Final/standalone/configuration/standalone.xml
     environment:
       - JAVA_OPTS=-Djava.net.preferIPv4Stack=true
-      
+
+  wildfly-cli:
+    image: jboss/wildfly
+    depends_on:
+      - wildfly
+    command: /opt/jboss/wildfly/bin/jboss-cli.sh --connect --file=/wildfly/cli/cli_script.cli
+    volumes:
+      - ./cli_script.cli:/path/to/your/cli_script.cli
+
   mariadb:
     container_name: "mariadb"
     image: "mariadb:10.2"
@@ -28,8 +36,8 @@ services:
       - MYSQL_PASSWORD=4hw5vkev
       - MYSQL_ROOT_PASSWORD=xyz8sbbb
     volumes:
-      - ./database/sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql 
-      - ./database/sql/data.sql:/data/data.sql              
+      - ./database/sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - ./database/sql/data.sql:/data/data.sql
     ports:
       - "3306:3306"
     networks:
