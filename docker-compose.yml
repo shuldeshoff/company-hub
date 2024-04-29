@@ -13,7 +13,7 @@ services:
       - "9990:9990"
     command: [ "/opt/jboss/wildfly/bin/standalone.sh", "--server-config=standalone.xml", "-b", "0.0.0.0" ]
     volumes:
-      - ./company-hub-pom/company-hub-ear/target/company-hub-ear.ear:/opt/jboss/wildfly/standalone/deployments/company-hub-ear.ear
+      - ./wildfly/deployments:/opt/jboss/wildfly/standalone/deployments/
       - ./wildfly/modules:/opt/wildfly-10.1.0.Final/modules/
       - ./wildfly/configuration/standalone.xml:/opt/wildfly-10.1.0.Final/standalone/configuration/standalone.xml
     environment:
