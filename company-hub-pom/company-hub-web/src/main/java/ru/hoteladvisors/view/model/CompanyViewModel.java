@@ -1,17 +1,19 @@
 package ru.hoteladvisors.view.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.zkoss.bind.annotation.Init;
-import ru.hoteladvisors.data.CompanyData;
 import ru.hoteladvisors.model.Company;
 import ru.hoteladvisors.service.CompanyServiceLocal;
 import ru.hoteladvisors.utils.JNDIName;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyViewModel {
+
+    private Logger logger = LoggerFactory.getLogger(CompanyViewModel.class);
 
     private Company selected;
     private List<Company> companyList;
@@ -40,7 +42,7 @@ public class CompanyViewModel {
         try {
             companyServiceLocal = InitialContext.doLookup(JNDIName.COMPANY_SERVICE_BEAN_JNDI);
         } catch (NamingException e) {
-            e.printStackTrace();
+            logger.error(e.getLocalizedMessage(), e);
         }
         return companyServiceLocal.getAll();
     }

@@ -14,7 +14,7 @@
             <!-- Настройки Hibernate -->
             <property name="hibernate.hbm2ddl.auto" value="validate"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDBDialect"/>
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.jdbc.batch_size" value="25"/>
         </properties>
     </persistence-unit>
