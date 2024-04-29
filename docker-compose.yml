@@ -25,7 +25,7 @@ services:
       - wildfly
     command: /opt/jboss/wildfly/bin/jboss-cli.sh --connect --file=/wildfly/cli/cli_script.cli
     volumes:
-      - ./cli_script.cli:/path/to/your/cli_script.cli
+      - ./cli_script.cli:/wildfly/cli//cli_script.cli
 
   mariadb:
     container_name: "mariadb"
