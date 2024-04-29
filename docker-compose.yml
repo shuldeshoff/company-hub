@@ -51,7 +51,7 @@ services:
       - mariadb
     volumes:
       - ./database/sql/liquibase/changeLog/:/liquibase/changelog/
-    command: --changelog-file=/liquibase/changelog/changelog.xml --url=jdbc:mariadb://127.0.0.1:3306/company_hub_db update
+    command: --changelog-file=/liquibase/changelog/changelog.xml --url=jdbc:mariadb:/127.0.0.1:3306/company_hub_db update
     networks:
       - backend
 
