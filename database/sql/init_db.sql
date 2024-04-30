@@ -1,5 +1,5 @@
-CREATE USER 'company_hub'@'localhost' IDENTIFIED BY '4hw5vkev';
-CREATE DATABASE company_hub_db;
+CREATE USER IF NOT EXISTS 'company_hub'@'localhost' IDENTIFIED BY '4hw5vkev';
+CREATE DATABASE IF NOT EXISTS company_hub_db;
 GRANT ALL PRIVILEGES ON company_hub_db.* TO 'company_hub'@'localhost';
 
 
