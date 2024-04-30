@@ -3,7 +3,7 @@ CREATE DATABASE company_hub_db;
 GRANT ALL PRIVILEGES ON company_hub_db.* TO 'company_hub'@'localhost';
 
 
-CREATE TABLE addresses (
+CREATE TABLE IF NOT EXISTS addresses (
     id BIGINT NOT NULL AUTO_INCREMENT,
     postcode VARCHAR(100) NOT NULL,
     city VARCHAR(255) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE addresses (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE сompanies (
+CREATE TABLE IF NOT EXISTS сompanies (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     legal_form INT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE сompanies (
     FOREIGN KEY (address_id) REFERENCES addresses(id)
 );
 
-CREATE TABLE branches (
+CREATE TABLE IF NOT EXISTS branches (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     address_id BIGINT,
