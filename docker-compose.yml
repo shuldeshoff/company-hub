@@ -2,7 +2,7 @@ version: '3'
 services:
   wildfly:
     container_name: "wildfly"
-    image: "jboss/wildfly:10.1.0.Final"
+    #image: "jboss/wildfly:10.1.0.Final"
     build:
       context: ./wildfly/
       dockerfile: Dockerfile
@@ -11,49 +11,56 @@ services:
     ports:
       - "8080:8080"
       - "9990:9990"
-    command: [ "/opt/jboss/wildfly/bin/standalone.sh", "--server-config=standalone.xml", "-b", "0.0.0.0" ]
+    #command: [ "/opt/jboss/wildfly/bin/standalone.sh", "--server-config=standalone.xml", "-b", "0.0.0.0" ]
     volumes:
       - ./wildfly/deployments:/opt/jboss/wildfly/standalone/deployments/
-      - ./wildfly/modules:/opt/wildfly-10.1.0.Final/modules/
-      - ./wildfly/configuration/standalone.xml:/opt/wildfly-10.1.0.Final/standalone/configuration/standalone.xml
+    #  - ./wildfly/modules/org/mariadb/main:/opt/jboss/wildfly/modules/org/mariadb/main
+      - ./wildfly/configuration/standalone.xml:/opt/jboss/wildfly/standalone/configuration/standalone.xml
     environment:
       - JAVA_OPTS=-Djava.net.preferIPv4Stack=true
+    networks:
+          backend:
 
-  wildfly-cli:
-    image: jboss/wildfly
-    depends_on:
-      - wildfly
-    command: /opt/jboss/wildfly/bin/jboss-cli.sh --connect --file=/wildfly/cli/cli_script.cli
-    volumes:
-      - ./cli_script.cli:/wildfly/cli/cli_script.cli
+
+
+  #wildfly-cli:
+  #  image: jboss/wildfly
+  #  depends_on:
+  #    - wildfly
+  #  command: /opt/jboss/wildfly/bin/jboss-cli.sh --connect --file=/wildfly/cli/cli_script.cli
+  #  volumes:
+  #    - ./cli_script.cli:/wildfly/cli/cli_script.cli
 
   mariadb:
     container_name: "mariadb"
-    image: "mariadb:10.2"
+    image: "mariadb"
+    build:
+      context: ./mariadb/
+      dockerfile: Dockerfile
     environment:
       - MYSQL_DATABASE=company_hub_db
       - MYSQL_USER=company_hub
       - MYSQL_PASSWORD=4hw5vkev
       - MYSQL_ROOT_PASSWORD=xyz8sbbb
     volumes:
-      - ./database/sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
-      - ./database/sql/data.sql:/data/data.sql
+      - ./mariadb/sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+  #    - ./database/sql/data.sql:/data/data.sql
     ports:
       - "3306:3306"
     networks:
       - backend
     restart: on-failure
 
-  Liquibase:
-    image: liquibase/liquibase:4.9.1
-    container_name: Liquibase_container
-    depends_on:
-      - mariadb
-    volumes:
-      - ./database/sql/liquibase/changeLog/:/liquibase/changelog/
-    command: --changelog-file=/liquibase/changelog/changelog.xml --url=jdbc:mariadb:/127.0.0.1:3306/company_hub_db update
-    networks:
-      - backend
+  #Liquibase:
+  #  image: liquibase/liquibase:4.9.1
+  #  container_name: Liquibase_container
+  #  depends_on:
+  #    - mariadb
+  #  volumes:
+  #    - ./database/sql/liquibase/changeLog/:/liquibase/changelog/
+  #  command: --changelog-file=/liquibase/changelog/changelog.xml --url=jdbc:mariadb:/127.0.0.1:3306/company_hub_db update
+  #  networks:
+  #    - backend
 
 networks:
   backend:
