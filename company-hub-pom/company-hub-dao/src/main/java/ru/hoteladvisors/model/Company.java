@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name = "сompanies")
+@Table(name = "companies")
 @NamedQueries({
         @NamedQuery(name = "Company.findAll", query = "FROM Company"),
 })
