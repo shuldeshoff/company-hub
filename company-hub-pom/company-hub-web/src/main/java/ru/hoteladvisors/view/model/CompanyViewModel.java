@@ -44,7 +44,7 @@ public class CompanyViewModel {
         } catch (NamingException e) {
             logger.error(e.getLocalizedMessage(), e);
         }
-        return companyServiceLocal.getAll();
+        return companyServiceLocal != null ? companyServiceLocal.getAll() : java.util.Collections.emptyList();
     }
 
 }
